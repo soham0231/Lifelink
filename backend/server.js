@@ -7,6 +7,7 @@ import userRoutes from "./routes/userRoutes.js";
 import donorRoutes from "./routes/donorRoutes.js";
 import bloodRequestRoutes from "./routes/bloodRequestRoutes.js";
 import donorResponseRoutes from "./routes/donorResponseRoutes.js";
+import adminRoutes from "./routes/adminRoutes.js";
 
 // Load environment variables first
 dotenv.config();
@@ -26,6 +27,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/donors", donorRoutes);
 app.use("/api/blood-requests", bloodRequestRoutes);
 app.use("/api/donor-responses", donorResponseRoutes);
+app.use("/api/admin", adminRoutes);
 
 // Start server
 app.listen(PORT, () => {

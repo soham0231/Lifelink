@@ -7,11 +7,7 @@ import { allowRoles } from "../middleware/roleMiddleware.js";
 
 const router = express.Router();
 
-router.post(
-  "/:requestId/respond",
-  protect,
-  allowRoles("donor"),
-  respondToBloodRequest
-);
+//routes for donor to respond to accept or decline
+router.post("/:requestId/respond",protect,allowRoles("donor"),respondToBloodRequest);
 
 export default router;

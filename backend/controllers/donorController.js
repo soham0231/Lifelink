@@ -47,3 +47,82 @@ export const createDonorProfile = async (req, res) => {
     });
   }
 };
+
+//to update the donor profile
+export const updateDonorProfile = async (req, res) => {
+  try {
+    const {
+      bloodGroup,
+      phone,
+      city,
+      isAvailable,
+      lastDonationDate,
+    } = req.body;
+
+    const donorProfile = await DonorProfile.findOne({
+      user: req.user.userId,
+    });
+
+    if (!donorProfile) {
+      return res.status(404).json({
+        message: "Donor profile not found",
+      });
+    }
+
+    if (bloodGroup !== undefined) {
+      donorProfile.bloodGroup = bloodGroup;
+    }
+
+    if (phone !== undefined) {
+      donorProfile.phone = phone;
+    }
+
+    if (city !== undefined) {
+      donorProfile.city = city;
+    }
+
+    if (isAvailable !== undefined) {
+      donorProfile.isAvailable = isAvailable;
+    }
+
+    if (lastDonationDate !== undefined) {
+      donorProfile.lastDonationDate = lastDonationDate;
+    }
+
+    await donorProfile.save();
+
+    res.status(200).json({
+      message: "Donor profile updated successfully",
+      donorProfile,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Something went wrong",
+      error: error.message,
+    });
+  }
+};
+
+//to get the donor profile
+export const getDonorProfile = async (req, res) => {
+  try {
+    const donorProfile = await DonorProfile.findOne({
+      user: req.user.userId,
+    }).populate("user", "name email gender");
+
+    if (!donorProfile) {
+      return res.status(404).json({
+        message: "Donor profile not found",
+      });
+    }
+
+    res.status(200).json({
+      donorProfile,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Something went wrong",
+      error: error.message,
+    });
+  }
+};

@@ -38,6 +38,10 @@ const donorProfileSchema = new mongoose.Schema(
       type: Boolean,
       default: true,
     },
+    isVerified: {
+      type: Boolean,
+      default: false,
+     },
 
     lastDonationDate: {
       type: Date,
